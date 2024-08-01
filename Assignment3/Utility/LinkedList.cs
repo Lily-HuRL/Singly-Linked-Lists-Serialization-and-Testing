@@ -154,19 +154,6 @@ namespace Assignment3
 			}
 		}
 
-		//public void Clear()
-		//{
-		//	if (Head == null)
-		//	{
-		//		throw new InvalidOperationException("List is empty");
-		//	}
-		//	else
-		//	{
-		//		Head = null;
-		//		Tail = null;
-		//		count = 0;
-		//	}
-		//}
         public void Clear()
         {
             Head = null;

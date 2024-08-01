@@ -18,9 +18,16 @@ namespace Assignment3.Tests
         public static void SerializeUsers(ILinkedListADT<User> users, string fileName)
         {
             DataContractSerializer serializer = new DataContractSerializer(typeof(List<User>));
+            //Convert the ILinkedListADT<User> to List<User>
+            List<User> userList = new List<User>();
+            for (int i = 0; i < users.Count(); i++)
+            {
+                userList.Add(users.GetValue(i));
+            }
             using (FileStream stream = File.Create(fileName))
             {
-                serializer.WriteObject(stream, users);
+                Console.WriteLine(fileName);
+                serializer.WriteObject(stream, userList);
             }
         }
 
@@ -34,7 +41,13 @@ namespace Assignment3.Tests
             DataContractSerializer serializer = new DataContractSerializer(typeof(List<User>));
             using (FileStream stream = File.OpenRead(fileName))
             {
-                return (ILinkedListADT<User>)serializer.ReadObject(stream);
+                List<User> deserializedUserList = (List<User>)serializer.ReadObject(stream);
+                LinkedList<User> deserializedUsers = new LinkedList<User>();
+                foreach (User user in deserializedUserList)
+                {
+                    deserializedUsers.AddLast(user);
+                }
+                return deserializedUsers;       
             }
         }
     }
